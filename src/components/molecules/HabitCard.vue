@@ -2,6 +2,9 @@
   <div class="habit-card">
     <Checkbox @toggle="emit('toggle')" :is-checked="isChecked"></Checkbox>
     <h2 class="habit-card__title">{{ habit }}</h2>
+    <div class="habit-card__meta">
+      <p class="habit-card__time">{{ daytime }}</p>
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,7 @@ const emit = defineEmits(['toggle'])
 
 const props = defineProps({
   habit: String,
+  daytime: String,
   isChecked: Boolean
 })
 </script>
@@ -19,23 +23,33 @@ const props = defineProps({
 <style scoped>
 .habit-card {
   background-color: var(--color-card);
-  border: 3px solid var(--color-border);
+  border: 1px solid var(--color-black);
   border-radius: var(--radius-lg);
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 20px;
   width: 350px;
-  box-shadow: 4px 4px 0px var(--color-border);
 }
 
 .habit-card__title {
-  font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   color: var(--color-text);
   margin: 0;
+}
+
+.habit-card__meta {
+  border: 1px solid var(--color-black);
+  padding: 5px;
+}
+
+.habit-card__time {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
 }
 </style>

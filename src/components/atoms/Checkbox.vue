@@ -1,5 +1,6 @@
 <template>
-  <button @click="emit('toggle')" class="checkbox" :class="{ 'checkbox--checked': isChecked }"></button>
+  <button @click="emit('toggle')" class="checkbox" :class="{ 'checkbox--checked': isChecked }"><img v-if="isChecked"
+      src="../../assets/icons/CheckIcon.svg" class="checkbox__icon"></button>
 </template>
 
 <script setup>
@@ -15,22 +16,25 @@ const props = defineProps({
 
 <style scoped>
 .checkbox {
+  display: flex;
   background-color: var(--color-card);
-  border: 3px solid var(--color-border);
+  border: 1px solid var(--color-black);
   border-radius: var(--radius-lg);
   width: 34px;
   height: 34px;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
-  box-shadow: 2px 2px 0px var(--color-border);
 }
 
 .checkbox:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px var(--color-border);
 }
 
 .checkbox--checked {
-  background-color: var(--color-border);
+  background-color: var(--color-black);
+}
+
+.checkbox__icon {
+  padding: 5px;
 }
 </style>
