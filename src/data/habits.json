@@ -1,17 +1,38 @@
 [
   {
     "id": 1,
-    "habit": "Lesen",
+    "habit": "3l Wasser trinken",
+    "daytime": "all",
     "ischecked": true
   },
   {
     "id": 2,
-    "habit": "10 min nichts tun",
+    "habit": "Morning run 5k",
+    "daytime": "morning",
     "ischecked": true
   },
   {
     "id": 3,
-    "habit": "Sport",
+    "habit": "read 30 pages",
+    "daytime": "evening",
     "ischecked": false
+  },
+  {
+    "id": 4,
+    "habit": "10 min meditation",
+    "daytime": "noon",
+    "ischecked": false
+  },
+  {
+    "id": 5,
+    "habit": "no sugar today",
+    "daytime": "all",
+    "ischecked": false
+  },
+  {
+    "id": 6,
+    "habit": "journal entry",
+    "daytime": "noon",
+    "ischecked": true
   }
 ]
