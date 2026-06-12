@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "habit": "Lesen",
+    "ischecked": true
+  },
+  {
+    "id": 2,
+    "habit": "10 min nichts tun",
+    "ischecked": true
+  },
+  {
+    "id": 3,
+    "habit": "Sport",
+    "ischecked": false
+  }
+]
