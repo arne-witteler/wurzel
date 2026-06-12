@@ -2,7 +2,7 @@
   {
     "id": 1,
     "habit": "3l Wasser trinken",
-    "daytime": "all",
+    "daytime": "anytime",
     "ischecked": true
   },
   {
@@ -26,7 +26,7 @@
   {
     "id": 5,
     "habit": "no sugar today",
-    "daytime": "all",
+    "daytime": "anytime",
     "ischecked": false
   },
   {

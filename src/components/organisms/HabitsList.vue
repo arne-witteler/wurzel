@@ -5,17 +5,34 @@
       <p class="app-header__sub-title">The habit tracker</p>
     </div>
 
-    <button class="app-header__burger" type="button">
+    <button @click="isMenuOpen = !isMenuOpen" class="app-header__burger" type="button">
       <img src="../../assets/icons/BurgerMenuIcon.svg" alt="Menü" class="app-header__burger-icon">
     </button>
+    <div class="app-menu" v-if="isMenuOpen">
+      <ul>
+        <li>
+          <p>Statistics</p>
+        </li>
+        <li>
+          <p>Settings</p>
+        </li>
+        <li>
+          <p>Export Data</p>
+        </li>
+        <li>
+          <p>About</p>
+        </li>
+      </ul>
+    </div>
   </header>
+
   <div class="habits-container">
     <div class="progress-monitor">
-      <span class="progress-monitor__date">Friday, Jun 12</span>
+      <span class="progress-monitor__date">{{ date }}</span>
 
       <div class="progress-monitor__status">
         <span class="progress-monitor__count-done">{{ numberOfCheckedHabits }}</span>
-        <span class="progress-monitor__count-total">{{ numberOfHabits }}</span>
+        <span class="progress-monitor__count-total">{{ '/ ' + numberOfHabits }}</span>
         <span class="progress-monitor__label">DONE</span>
       </div>
 
@@ -54,8 +71,11 @@ import habits from '../../data/habits.json';
 
 const habitlist = ref(habits);
 const currentFilter = ref('all');
+const isMenuOpen = ref(false);
 
-const daytimes = new Set(habitlist.value.map((item) => item.daytime));
+const daytimes = ["all", "morning", "noon", "evening", "anytime"];
+const options = { weekday: 'long', month: 'short', day: 'numeric' };
+const date = new Date().toLocaleDateString('en-US', options).toUpperCase();
 
 const filteredHabits = computed(() => {
   if (currentFilter.value === "all") {
@@ -86,7 +106,7 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 16px;
   border-bottom: 2px solid var(--color-black);
   font-family: 'Inter', sans-serif;
 }
@@ -145,9 +165,9 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .progress-monitor {
@@ -219,11 +239,18 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
 
 .filter-tabs {
   display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   list-style: none;
   padding: 0;
   margin: 0 0 20px 0;
   border-bottom: 1px solid var(--color-black);
   border-top: 1px solid var(--color-black);
+}
+
+.filter-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-tabs__item {
@@ -237,7 +264,7 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   font-size: 0.85rem;
   text-transform: uppercase;
   color: var(--color-grey);
-  padding: 12px 20px;
+  padding: 12px 10px;
   cursor: pointer;
   position: relative;
   transition: color 0.1s ease;

@@ -10,8 +10,6 @@ const emit = defineEmits(['toggle'])
 const props = defineProps({
   isChecked: Boolean,
 })
-
-
 </script>
 
 <style scoped>

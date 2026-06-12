@@ -25,11 +25,12 @@ const props = defineProps({
   background-color: var(--color-card);
   border: 1px solid var(--color-black);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-  width: 350px;
+  width: 100%;
 }
 
 .habit-card__title {
