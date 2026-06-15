@@ -2,8 +2,7 @@
   --color-black: #000000;
   --color-white: #ffffff;
   --color-grey: #8a8a8a;
-  --color-card: #ffffff;
-  --color-text: #000000;
+  --color-light-grey: #e0e0e0;
   --radius-lg: 2px;
   
   --font-size: 16px;
@@ -22,7 +21,7 @@ body {
   font-size: var(--font-size);
   background-color: var(--color-white);
   color: var(--color-text);
-  padding: 40px 0px;
+  padding: 40px 16px;
   min-height: 100vh;
 }
 

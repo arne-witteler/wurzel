@@ -1,66 +1,64 @@
 <template>
-  <header class="app-header">
-    <div class="app-header__branding">
-      <h1 class="app-header__title">Wurzel</h1>
-      <p class="app-header__sub-title">The habit tracker</p>
-    </div>
-
-    <button @click="isMenuOpen = !isMenuOpen" class="app-header__burger" type="button">
-      <img src="../../assets/icons/BurgerMenuIcon.svg" alt="Menü" class="app-header__burger-icon">
-    </button>
-    <div class="app-menu" v-if="isMenuOpen">
-      <ul>
-        <li>
-          <p>Statistics</p>
-        </li>
-        <li>
-          <p>Settings</p>
-        </li>
-        <li>
-          <p>Export Data</p>
-        </li>
-        <li>
-          <p>About</p>
-        </li>
-      </ul>
-    </div>
-  </header>
-
-  <div class="habits-container">
-    <div class="progress-monitor">
-      <span class="progress-monitor__date">{{ date }}</span>
-
-      <div class="progress-monitor__status">
-        <span class="progress-monitor__count-done">{{ numberOfCheckedHabits }}</span>
-        <span class="progress-monitor__count-total">{{ '/ ' + numberOfHabits }}</span>
-        <span class="progress-monitor__label">DONE</span>
+  <div class="app-layout">
+    <header class="app-header">
+      <div class="app-header__branding">
+        <h1 class="app-header__title">Wurzel</h1>
+        <p class="app-header__sub-title">The habit tracker</p>
       </div>
-
-      <div class="progress-bar">
-        <div class="progress-bar__fill" :style="{ width: percentageOfCheckedHabits + '%' }"></div>
+      <button @click="isMenuOpen = !isMenuOpen" class="app-header__burger" type="button">
+        <img src="@/assets/icons/BurgerMenuIcon.svg" alt="Menü" class="app-header__burger-icon">
+      </button>
+      <div class="app-menu" v-if="isMenuOpen">
+        <ul>
+          <li>
+            <p>Statistics</p>
+          </li>
+          <li>
+            <p>Settings</p>
+          </li>
+          <li>
+            <p>Export Data</p>
+          </li>
+          <li>
+            <p>About</p>
+          </li>
+        </ul>
       </div>
-
-      <div class="progress-labels">
-        <span>0%</span>
-        <span>{{ Math.round(percentageOfCheckedHabits) + ' %' }}</span>
-        <span>100%</span>
+    </header>
+    <div class="habits-container">
+      <div class="progress-monitor">
+        <span class="progress-monitor__date">{{ date }}</span>
+        <div class="progress-monitor__status">
+          <span class="progress-monitor__count-done">{{ numberOfCheckedHabits }}</span>
+          <span class="progress-monitor__count-total">{{ '/ ' + numberOfHabits }}</span>
+          <span class="progress-monitor__label">DONE</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-bar__fill" :style="{ width: percentageOfCheckedHabits + '%' }"></div>
+        </div>
+        <div class="progress-labels">
+          <span>0%</span>
+          <span>{{ Math.round(percentageOfCheckedHabits) + ' %' }}</span>
+          <span>100%</span>
+        </div>
+      </div>
+      <div class="habits-content-block">
+        <ul class="filter-tabs">
+          <li v-for="daytime in daytimes" :key="daytime" class="filter-tabs__item">
+            <button @click="currentFilter = daytime" class="filter-tabs__button"
+              :class="{ 'filter-tabs__button--active': currentFilter === daytime }" type="button">
+              {{ daytime }}
+            </button>
+          </li>
+        </ul>
+        <ul class="habit-list">
+          <li v-for="habit in filteredHabits" :key="habit.id" class="habit-list__item">
+            <HabitCard @toggle="toggleHabit(habit.id)" :is-checked="habit.ischecked" :habit="habit.habit"
+              :daytime="habit.daytime"></HabitCard>
+          </li>
+        </ul>
       </div>
     </div>
-    <ul class="filter-tabs">
-      <li v-for="daytime in daytimes" :key="daytime" class="filter-tabs__item">
-        <button @click="currentFilter = daytime" class="filter-tabs__button"
-          :class="{ 'filter-tabs__button--active': currentFilter === daytime }" type="button">
-          {{ daytime }}
-        </button>
-      </li>
-    </ul>
-
-    <ul class="habit-list">
-      <li v-for="habit in filteredHabits" :key="habit.id" class="habit-list__item">
-        <HabitCard @toggle="toggleHabit(habit.id)" :is-checked="habit.ischecked" :habit="habit.habit"
-          :daytime="habit.daytime"></HabitCard>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -83,12 +81,10 @@ const filteredHabits = computed(() => {
   } else {
     return habitlist.value.filter((item => item.daytime === currentFilter.value));
   }
-
-})
+});
 
 function toggleHabit(id) {
   const targetHabit = habitlist.value.find((item) => item.id === id);
-
   if (targetHabit) {
     targetHabit.ischecked = !targetHabit.ischecked;
   }
@@ -96,11 +92,16 @@ function toggleHabit(id) {
 
 const numberOfHabits = computed(() => habitlist.value.length);
 const numberOfCheckedHabits = computed(() => habitlist.value.filter((item => item.ischecked === true)).length);
-const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / numberOfHabits.value * 100);
-
+const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / numberOfHabits.value) * 100 || 0);
 </script>
 
 <style scoped>
+.app-layout {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .app-header {
   width: 100%;
   display: flex;
@@ -108,7 +109,7 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   align-items: center;
   padding: 20px 16px;
   border-bottom: 2px solid var(--color-black);
-  font-family: 'Inter', sans-serif;
+  position: relative;
 }
 
 .app-header__branding {
@@ -122,7 +123,6 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  line-height: 1;
   margin: 0 0 4px 0;
 }
 
@@ -142,29 +142,43 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   width: 28px;
   height: 24px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
 }
 
-.app-header__burger-line {
-  display: block;
-  width: 100%;
-  height: 3px;
+.app-menu {
+  position: absolute;
+  top: 100%;
+  right: 16px;
+  width: 200px;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-black);
+  z-index: 100;
+  margin-top: 8px;
+}
+
+.app-menu ul {
+  padding: 0;
+  margin: 0;
+}
+
+.app-menu li {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.app-menu li:hover {
   background-color: var(--color-black);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: var(--color-white);
 }
 
-.app-header__burger :last-child {
-  width: 80%;
-  align-self: flex-end;
+.app-menu p {
+  margin: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
 .habits-container {
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
   padding: 0 16px;
   display: flex;
   flex-direction: column;
@@ -212,7 +226,7 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
 .progress-bar {
   width: 100%;
   height: 6px;
-  background-color: #e0e0e0;
+  background-color: var(--color-light-grey);
   position: relative;
   margin-bottom: 8px;
 }
@@ -228,13 +242,8 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   justify-content: space-between;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #8a8a8a;
+  color: var(--color-grey);
   text-transform: uppercase;
-}
-
-.progress-labels__text {
-  color: var(--color-black);
-  font-weight: 800;
 }
 
 .filter-tabs {
@@ -266,7 +275,6 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   color: var(--color-grey);
   padding: 12px 10px;
   cursor: pointer;
-  position: relative;
   transition: color 0.1s ease;
 }
 
@@ -285,5 +293,41 @@ const percentageOfCheckedHabits = computed(() => numberOfCheckedHabits.value / n
   gap: 16px;
   padding: 0;
   list-style: none;
+}
+
+@media (min-width: 768px) {
+
+  .app-layout {
+    max-width: 850px;
+  }
+
+  .app-header {
+    padding: 20px 0;
+  }
+
+  .habits-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    padding: 24px 0 0 0;
+  }
+
+  .progress-monitor {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-layout {
+    max-width: 1000px;
+  }
+
+  .habits-container {
+    grid-template-columns: 320px 1fr;
+    gap: 80px;
+  }
 }
 </style>
