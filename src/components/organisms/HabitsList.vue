@@ -25,6 +25,9 @@
         </ul>
       </div>
     </header>
+
+    <PyroCelebrate v-if="isEverythingDone" />
+
     <div class="habits-container">
       <div class="progress-monitor">
         <span class="progress-monitor__date">{{ date }}</span>
@@ -66,6 +69,7 @@
 import { ref, computed } from 'vue';
 import HabitCard from '../molecules/HabitCard.vue';
 import habits from '../../data/habits.json';
+import PyroCelebrate from '../atoms/PyroCelebrate.vue';
 
 const habitlist = ref(habits);
 const currentFilter = ref('all');
@@ -107,6 +111,10 @@ function toggleHabit(id) {
 const numberOfHabits = computed(() => habitlist.value.length);
 const numberOfCheckedHabits = computed(() => habitlist.value.filter((item => item.ischecked === true)).length);
 const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / numberOfHabits.value) * 100 || 0);
+
+const isEverythingDone = computed(() => {
+  return numberOfHabits.value > 0 && numberOfHabits.value == numberOfCheckedHabits.value;
+})
 </script>
 
 <style scoped>
