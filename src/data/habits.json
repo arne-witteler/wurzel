@@ -61,5 +61,45 @@
       "2026-06-15",
       "2026-06-14"
     ]
+  },
+  {
+    "id": 7,
+    "habit": "journal entry",
+    "daytime": "noon",
+    "ischecked": true,
+    "history": [
+      "2026-06-15",
+      "2026-06-14"
+    ]
+  },
+  {
+    "id": 8,
+    "habit": "journal entry",
+    "daytime": "noon",
+    "ischecked": true,
+    "history": [
+      "2026-06-15",
+      "2026-06-14"
+    ]
+  },
+  {
+    "id": 9,
+    "habit": "journal entry",
+    "daytime": "noon",
+    "ischecked": true,
+    "history": [
+      "2026-06-15",
+      "2026-06-14"
+    ]
+  },
+  {
+    "id": 10,
+    "habit": "journal entry",
+    "daytime": "noon",
+    "ischecked": true,
+    "history": [
+      "2026-06-15",
+      "2026-06-14"
+    ]
   }
 ]
