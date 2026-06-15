@@ -123,7 +123,10 @@ const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / 
   align-items: center;
   padding: 20px 16px;
   border-bottom: 2px solid var(--color-black);
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background-color: var(--color-white);
 }
 
 .app-header__branding {
@@ -310,7 +313,6 @@ const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / 
 }
 
 @media (min-width: 768px) {
-
   .app-layout {
     max-width: 850px;
   }
@@ -323,14 +325,25 @@ const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / 
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 48px;
-    padding: 24px 0 0 0;
+    padding: 40px 0 0 0;
   }
 
   .progress-monitor {
     position: sticky;
-    top: 20px;
+    top: 140px;
     height: fit-content;
     padding: 0;
+  }
+
+  .filter-tabs {
+    position: sticky;
+    top: 78px;
+    z-index: 80;
+    background-color: var(--color-white);
+    padding-top: 32px;
+    padding-bottom: 10px;
+    margin-top: -32px;
+    border-top: none;
   }
 }
 
@@ -342,6 +355,16 @@ const percentageOfCheckedHabits = computed(() => (numberOfCheckedHabits.value / 
   .habits-container {
     grid-template-columns: 320px 1fr;
     gap: 80px;
+    padding-top: 48px;
+  }
+
+  .progress-monitor {
+    top: 140px;
+  }
+
+  .filter-tabs {
+    top: 78px;
+    padding-top: 32px;
   }
 }
 </style>
