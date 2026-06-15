@@ -18,13 +18,13 @@
     </div>
 
     <div class="habit-card__meta">
-      <p class="habit-card__time">{{ daytime }}</p>
+      <p class="habit-card__time">{{ displayDayTime }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import Checkbox from '../atoms/Checkbox.vue';
 
 const emit = defineEmits(['toggle'])
@@ -37,6 +37,35 @@ const props = defineProps({
     type: Array,
     default: () => []
   }
+})
+
+const shortDaytimes = {
+  morning: 'MORN',
+  noon: 'NOON',
+  evening: 'EVE',
+  anytime: 'ANY'
+}
+
+const isSmallDisplaySize = ref(false);
+
+const checkScreenSize = () => {
+  isSmallDisplaySize.value = window.innerWidth < 420;
+}
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize);
+});
+
+const displayDayTime = computed(() => {
+  if (isSmallDisplaySize.value == true) {
+    return shortDaytimes[props.daytime];
+  } else
+    return props.daytime;
 })
 
 const currentWeekDays = computed(() => {
