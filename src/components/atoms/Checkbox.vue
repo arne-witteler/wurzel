@@ -22,6 +22,7 @@ const props = defineProps({
   height: 34px;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+  flex-shrink: 0;
 }
 
 .checkbox:active {

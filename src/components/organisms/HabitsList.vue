@@ -54,7 +54,7 @@
         <ul class="habit-list">
           <li v-for="habit in filteredHabits" :key="habit.id" class="habit-list__item">
             <HabitCard @toggle="toggleHabit(habit.id)" :is-checked="habit.ischecked" :habit="habit.habit"
-              :daytime="habit.daytime"></HabitCard>
+              :daytime="habit.daytime" :history="habit.history"></HabitCard>
           </li>
         </ul>
       </div>
@@ -85,8 +85,22 @@ const filteredHabits = computed(() => {
 
 function toggleHabit(id) {
   const targetHabit = habitlist.value.find((item) => item.id === id);
+
   if (targetHabit) {
     targetHabit.ischecked = !targetHabit.ischecked;
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    if (!targetHabit.history) {
+      targetHabit.history = [];
+    }
+
+    if (targetHabit.ischecked) {
+      if (!targetHabit.history.includes(todayStr)) {
+        targetHabit.history.push(todayStr);
+      }
+    } else {
+      targetHabit.history = targetHabit.history.filter(date => date !== todayStr);
+    }
   }
 }
 
