@@ -111,7 +111,7 @@ const streakCount = computed(() => {
 
 .habit-card__title {
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   color: var(--color-text);
@@ -125,7 +125,7 @@ const streakCount = computed(() => {
 }
 
 .habit-card__streak {
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: var(--color-grey);
   text-transform: uppercase;
@@ -160,7 +160,7 @@ const streakCount = computed(() => {
 
 .habit-card__time {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 0.5rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   margin: 0;
