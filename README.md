@@ -6,7 +6,7 @@
 
 ## SCREENSHOT
 
-![Wurzel Habit Tracker Interface](./src/assets/screenshot_1.png)
+![Wurzel Habit Tracker Interface](./src/assets/screenshot_2.png)
 
 ---
 
@@ -19,7 +19,15 @@
 
 ## 📝 DEV LOG
 
-## 📝 DEV LOG
+### [2026-06-15] - Die Usability- & Animations-Evolution ⚡
+**Heute erledigt:**
+- **Prop-Brücke & Reaktive Historie:** Den kritischen Daten-Bug behoben, indem das `history`-Array aus der Master-Liste (`habits.json`) via Prop (`:history`) an die `HabitCard.vue` durchgereicht wird. Das Abhaken einer Checkbox manipuliert nun reaktiv das Array, wodurch das erste Kästchen der aktuellen Woche sofort live ein- oder ausgefärbt wird.
+- **Kalendarische Detektivarbeit (Computed Week):** Die Logik in `currentWeekDays` präzisiert. Über ein dynamisches JavaScript-Date-Mapping wird – ausgehend vom aktuellen Wochentag – der exakte Montag der aktuellen Woche ermittelt. Eine Schleife generiert die 7 ISO-Datums-Strings (`YYYY-MM-DD`) der laufenden Woche vollautomatisch und robust gegen Monatswechsel.
+- **Lückenloser Streak-Algorithmus:** Die `streakCount`-Logik komplett repariert. Der Algorithmus prüft nun reaktiv ab heute (oder gestern, falls das Habit heute noch offen ist) lückenlos rückwärts durch das `history`-Array, bis die Kette reißt. 
+- **Sticky-Layout & Desktop-Grip:** Das Dashboard-Layout für große Bildschirme optimiert. Sowohl der `progress-monitor` (links) als auch die `filter-tabs` (rechts) rasten beim Scrollen via `position: sticky` unabhängig voneinander ein.
+- **Verschwindungs-Trick gegen Gucklöcher:** Das unschöne Durchblitzen der Habit-Karten beim Scrollen zwischen Header und Filter-Tabs eliminiert. Die Tabs docken jetzt visuell nahtlos mit `top: 78px` an den Header an, während der großzügige Leerraum trickreich über `padding-top` und negatives `margin-top` als massive weiße Wand simuliert wird.
+- **Responsive Text-Kürzel (Lifecycle Hooks):** Ein gravierendes Platzproblem auf extrem schmalen Smartphone-Displays gelöst. Über `onMounted` und `onUnmounted` lauscht die Karte auf das `resize`-Event des Browsers. Ein reaktiver Ref (`isSmallDisplaySize`) schaltet den Text bei `< 420px` über ein Mapping-Objekt vollautomatisch auf prägnante Kurzformen (`MORN`, `NOON`, `EVE`, `ANY`) um.
+- **Dopamin-Kick via Modularer Pyro-Komponente:** Ein Belohnungs-Feature für 100% erledigte Habits implementiert. Die Berechnungen wurden in die neue, isolierte Komponente `PyroCelebrate.vue` ausgelagert. Sobald die computed Property `isEverythingDone` feuert, wird ein pures, hochperformantes CSS-Feuerwerk (`@keyframes bang` & `gravity`) ohne externe Bibliotheken getriggert, das sich über einen internen `setTimeout`-Timer im `onMounted`-Hook nach exakt 3 Sekunden selbst aus dem DOM löscht.
 
 ### [2026-06-12] - Der reaktive Durchbruch 🚀
 **Heute erledigt:**
